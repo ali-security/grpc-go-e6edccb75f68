@@ -49,10 +49,10 @@ type testOpts struct {
 func setup(t *testing.T, opts testOpts) (*controlPlane, *client, []*server) {
 	t.Helper()
 	if _, err := os.Stat(*clientPath); os.IsNotExist(err) {
-		t.Skip("skipped because client is not found")
+		t.Skipf("skipped because client is not found at %q: the interop xDS binaries are built only by xds/internal/test/e2e/run.sh, which runs this suite in the extras CI leg", *clientPath)
 	}
 	if _, err := os.Stat(*serverPath); os.IsNotExist(err) {
-		t.Skip("skipped because server is not found")
+		t.Skipf("skipped because server is not found at %q: the interop xDS binaries are built only by xds/internal/test/e2e/run.sh, which runs this suite in the extras CI leg", *serverPath)
 	}
 	backendCount := 1
 	if opts.backendCount != 0 {
